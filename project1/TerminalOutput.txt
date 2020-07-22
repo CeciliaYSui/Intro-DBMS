@@ -1,0 +1,186 @@
+Last login: Fri Nov 16 15:26:59 on ttys001
+CCs-MacBook-Pro:~ CeciliaS$ mysql -u root -p LIPSCOMB --local-infile=1
+Enter password: 
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 39
+Server version: 8.0.13 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show tables;
++--------------------+
+| Tables_in_lipscomb |
++--------------------+
+| COURSE             |
+| COURSE_SECTION     |
+| ENROLLMENT         |
+| FACULTY            |
+| LOCATION           |
+| STUDENT            |
+| TERM               |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> LOAD DATA local  INFILE '/Users/CeciliaS/Desktop/DBMS_Project1/Data/Course.csv' into TABLE COURSE CHARACTER SET utf8mb4 COLUMNS TERMINATED BY ','  lines terminated by '\n';
+Query OK, 5 rows affected (0.12 sec)
+Records: 5  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> LOAD DATA local  INFILE '/Users/CeciliaS/Desktop/DBMS_Project1/Data/Course_section.csv' into TABLE COURSE_SECTION CHARACTER SET utf8mb4 COLUMNS TERMINATED BY ','  lines terminated by '\n';
+Query OK, 13 rows affected (0.05 sec)
+Records: 13  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> LOAD DATA local  INFILE '/Users/CeciliaS/Desktop/DBMS_Project1/Data/Student.csv' into TABLE STUDENT CHARACTER SET utf8mb4 COLUMNS TERMINATED BY ','  lines terminated by '\n';
+Query OK, 6 rows affected (0.06 sec)
+Records: 6  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> LOAD DATA local  INFILE '/Users/CeciliaS/Desktop/DBMS_Project1/Data/Term.csv' into TABLE TERM CHARACTER SET utf8mb4 COLUMNS TERMINATED BY ','  lines terminated by '\n';
+Query OK, 6 rows affected (0.06 sec)
+Records: 6  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> LOAD DATA local  INFILE '/Users/CeciliaS/Desktop/DBMS_Project1/Data/Location.csv' into TABLE LOCATION CHARACTER SET utf8mb4 COLUMNS TERMINATED BY ','  lines terminated by '\n';
+Query OK, 13 rows affected (0.02 sec)
+Records: 13  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> LOAD DATA local  INFILE '/Users/CeciliaS/Desktop/DBMS_Project1/Data/Faculty.csv' into TABLE FACULTY CHARACTER SET utf8mb4 COLUMNS TERMINATED BY ','  lines terminated by '\n';
+Query OK, 5 rows affected, 2 warnings (0.05 sec)
+Records: 5  Deleted: 0  Skipped: 0  Warnings: 2
+
+mysql> LOAD DATA local  INFILE '/Users/CeciliaS/Desktop/DBMS_Project1/Data/Enrollment.csv' into TABLE ENROLLMENT CHARACTER SET utf8mb4 COLUMNS TERMINATED BY ','  lines terminated by '\n';
+Query OK, 20 rows affected (0.05 sec)
+Records: 20  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from course;
++------+--------+-----------------------+---------+
+| C_ID | C_No   | C_Name                | Credits |
++------+--------+-----------------------+---------+
+|    1 | IT 101 | Intro. to Info. Tech. |       3 |
+|    2 | IS 301 | Systems Analysis      |       3 |
+|    3 | IT 240 | Database Management   |       3 |
+|    4 | CS 120 | Intro. To Programming |       3 |
+|    5 | IT 451 | Web-Based Systems     |       3 |
++------+--------+-----------------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from course_section;
++----------+------+---------+---------+------+----------+------------+----------+--------+----------+
+| C_Sec_ID | C_ID | Term_ID | Sec_Num | F_ID | Mtg_Days | Start_Time | End_Time | Loc_ID | Max_Enrl |
++----------+------+---------+---------+------+----------+------------+----------+--------+----------+
+|        1 |    1 |       4 |       1 |    2 | MWF      | 10:00 AM   | 10:50 AM |      1 |      140 |
+|        2 |    1 |       4 |       2 |    3 | TR       | 9:30 AM    | 10:45 AM |      7 |       35 |
+|        3 |    1 |       4 |       3 |    3 | MWF      | 8:00 AM    | 8:50 AM  |      2 |       35 |
+|        4 |    2 |       4 |       1 |    4 | TR       | 11:00 AM   | 12:15 AM |      6 |       35 |
+|        5 |    2 |       5 |       2 |    4 | TR       | 2:00 PM    | 3:15 PM  |      6 |       35 |
+|        6 |    3 |       5 |       1 |    1 | MWF      | 9:00 AM    | 9:50 AM  |      5 |       30 |
+|        7 |    3 |       5 |       2 |    1 | MWF      | 10:00 AM   | 10:50 AM |      5 |       30 |
+|        8 |    4 |       5 |       1 |    5 | TR       | 8:00 AM    | 9:15 AM  |      3 |       35 |
+|        9 |    5 |       5 |       1 |    2 | MWF      | 2:00 PM    | 2:50 PM  |      5 |       35 |
+|       10 |    5 |       5 |       2 |    2 | MWF      | 3:00 PM    | 3:50 PM  |      5 |       35 |
+|       11 |    1 |       6 |       1 |    1 | MTWRF    | 8:00 AM    | 9:30 AM  |      1 |       50 |
+|       12 |    2 |       6 |       1 |    2 | MTWRF    | 8:00 AM    | 9:30 AM  |      6 |       35 |
+|       13 |    3 |       6 |       1 |    3 | MTWRF    | 8:00 AM    | 9:30 AM  |      5 |       35 |
++----------+------+---------+---------+------+----------+------------+----------+--------+----------+
+13 rows in set (0.00 sec)
+
+mysql> select * from student;
++------+---------+---------+------+------------------------+----------+---------+-------+------------+---------+----------+-------+------+---------------+
+| S_ID | S_Last  | S_First | S_MI | S_Address              | S_City   | S_State | S_Zip | S_Phone    | S_Class | S_DOB    | S_PIN | F_ID | Date_Enrolled |
++------+---------+---------+------+------------------------+----------+---------+-------+------------+---------+----------+-------+------+---------------+
+|    1 | Jones   | Tammy   | R    | 1817 Eagleridge Circle | Houston  | TX      | 77027 | 3250987654 | SR      | 07/14/86 | 8891  |    1 | 06/03/03      |
+|    2 | Perez   | Jorge   | C    | 951 Rainbow Drive      | Abilene  | TX      | 79901 | 3258765432 | SR      | 08/19/86 | 1230  |    1 | 01/10/02      |
+|    3 | Marsh   | John    | A    | 1275 W Main St         | Dallas   | TX      | 78012 | 3257654321 | JR      | 10/10/83 | 1613  |    1 | 08/24/03      |
+|    4 | Smith   | Mike    |      | 428 EN 16 Street       | Abilene  | TX      | 79902 | 3256543210 | SO      | 9/24/87  | 1841  |    2 | 08/23/04      |
+|    5 | Johnson | Lisa    | M    | 764 College Drive      | Abilene  | TX      | 79901 | 3255432109 | SO      | 11/20/87 | 4420  |    4 | 01/08/05      |
+|    6 | Nguyen  | Ni      | M    | 688 4th Street         | Ft Worth | TX      | 78767 | 3254321098 | FR      | 12/4/88  | 9188  |    3 | 08/22/06      |
++------+---------+---------+------+------------------------+----------+---------+-------+------------+---------+----------+-------+------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from term;
++---------+-------------+---------+------------+
+| Term_ID | Term_Desc   | Status_ | Start_Date |
++---------+-------------+---------+------------+
+|       1 | Fall 2006   | CLOSED  | 28-AUG-06  |
+|       2 | Spring 2007 | CLOSED  | 09-JAN-08  |
+|       3 | Summer 2007 | CLOSED  | 15-MAY-06  |
+|       4 | Fall 2007   | CLOSED  | 28-AUG-07  |
+|       5 | Spring 2019 | OPEN    | 08-JAN-08  |
+|       6 | Fall 2018   | OPEN    | 07-MAY-08  |
++---------+-------------+---------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from location;
++--------+-----------+------+----------+
+| Loc_ID | Bldg_Code | Room | Capacity |
++--------+-----------+------+----------+
+|      1 | CR        | 101  |      150 |
+|      2 | CR        | 202  |       40 |
+|      3 | CR        | 103  |       35 |
+|      4 | CR        | 105  |       35 |
+|      5 | BUS       | 105  |       42 |
+|      6 | BUS       | 404  |       35 |
+|      7 | BUS       | 421  |       35 |
+|      8 | BUS       | 211  |       55 |
+|      9 | BUS       | 424  |        1 |
+|     10 | BUS       | 402  |        1 |
+|     11 | BUS       | 433  |        1 |
+|     12 | LIB       | 217  |        2 |
+|     13 | LIB       | 222  |        1 |
++--------+-----------+------+----------+
+13 rows in set (0.00 sec)
+
+mysql> select * from faculty;
++------+---------+---------+------+--------+------------+-----------+---------+-------+
+| F_ID | F_Last  | F_First | F_MI | Loc_ID | F_Phone    | F_Rank    | F_Super | F_PIN |
++------+---------+---------+------+--------+------------+-----------+---------+-------+
+|    1 | Marx    | Teresa  | J    |      9 | 3251234567 | Associate |       4 | 6339  |
+|    2 | Zhulin  | Mark    | M    |     10 | 3252345678 | Full      |       0 | 1121  |
+|    3 | Langley | Colin   | A    |     12 | 3253456789 | Assistant |       4 | 9871  |
+|    4 | Brown   | Jonnel  | D    |     11 | 3254567890 | Full      |       0 | 8297  |
+|    5 | Sealy   | James   | L    |     13 | 3255678901 | Associate |       2 | 6089  |
++------+---------+---------+------+--------+------------+-----------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from enrollment;
++------+----------+-------+
+| S_ID | C_Sec_ID | Grade |
++------+----------+-------+
+|    1 |        1 | A     |
+|    1 |        4 | A     |
+|    1 |        6 | B     |
+|    1 |        9 | B     |
+|    2 |        1 | C     |
+|    2 |        5 | B     |
+|    2 |        6 | A     |
+|    2 |        9 | B     |
+|    3 |        1 | C     |
+|    3 |       12 | NULL  |
+|    3 |       13 | NULL  |
+|    4 |       11 | NULL  |
+|    4 |       12 | NULL  |
+|    5 |        1 | B     |
+|    5 |        5 | C     |
+|    5 |        9 | C     |
+|    5 |       11 | NULL  |
+|    5 |       13 | NULL  |
+|    6 |       11 | NULL  |
+|    6 |       12 | NULL  |
++------+----------+-------+
+20 rows in set (0.00 sec)
+
+mysql> UPDATE FACULTY  SET F_Super = NULL  WHERE F_Super = 0; 
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> UPDATE ENROLLMENT SET Grade = NULL WHERE Grade = 'NULL'; 
+Query OK, 8 rows affected (0.10 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
+
+mysql> 
